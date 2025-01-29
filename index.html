@@ -20,10 +20,10 @@
       <header class="toolbar toolbar-header">
         <div class="toolbar-actions">
             <div class="btn-group">
-              <button class="btn btn-default">
+              <button class="btn btn-default" onclick="increaseFont()">
                 <span class="icon icon-plus"></span>
               </button>
-              <button class="btn btn-default">
+              <button class="btn btn-default" onclick="decreaseFont()">
                 <span class="icon icon-minus"></span>
               </button>
              
@@ -41,5 +41,16 @@
         <textarea></textarea>
       </div>
     </div>
+    <script>
+      let textarea = document.querySelector('textarea')
+      let defaultFontSize = 20
+      function increaseFont() {
+        textarea.style.fontSize = `${++defaultFontSize}px`;
+      }
+
+      function decreaseFont() {
+        textarea.style.fontSize = `${--defaultFontSize}px`;
+      }
+    </script>
   </body>
 </html>
