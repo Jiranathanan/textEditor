@@ -2,6 +2,7 @@ const electron = require('electron');
 const fs = require('fs');
 const { app, BrowserWindow, ipcMain, dialog } = electron;
 let win;
+let filepath;
 
 app.on('ready', () => {
     win = new BrowserWindow({
@@ -14,17 +15,26 @@ app.on('ready', () => {
 
 ipcMain.on('save', (event, text) => {
     // save the text to a file
-    dialog.showSaveDialog(win, {defaultPath: 'filename.txt'}, (fullpath) => {
-        // console.log(fullpath);
+    if(filepath === undefined) {
+        dialog.showSaveDialog(win, {defaultPath: 'filename.txt'}, (fullpath) => {
         if(fullpath) {
-            fs.writeFile(fullpath, text, (err) => {
-                if(err) {
-                    console.log('there was an error ', err)
-                } else {
-                    console.log('file has been saved');
-                }
-            });
-        }
-    })
-    
+            filepath = fullpath;
+            writeToFile(text);
+            }
+        })
+
+    } else {
+        writeToFile(text);
+    }
+        
 })
+
+function writeToFile(data) {
+    fs.writeFile(filepath, data, (err) => {
+        if(err) {
+            console.log('there was an error ', err)
+        } else {
+            console.log('file has been saved');
+        }
+    });
+}
