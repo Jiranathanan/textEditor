@@ -36,5 +36,6 @@ function writeToFile(data) {
         } else {
             console.log('file has been saved');
         }
+        win.webContents.send('saved', 'success');
     });
 }
