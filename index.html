@@ -75,6 +75,10 @@
         } , 1000)
       })
 
+      ipcRenderer.on('save-clicked', () => {
+        saveText();
+      })
+
     </script>
   </body>
 </html>

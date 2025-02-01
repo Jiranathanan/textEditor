@@ -2,7 +2,7 @@ const electron = require('electron');
 const fs = require('fs');
 const { app, BrowserWindow, ipcMain, dialog, Menu } = electron;
 let win;
-let filepath;
+let filepath = undefined;
 
 app.on('ready', () => {
     win = new BrowserWindow({
@@ -55,13 +55,16 @@ const menuTemplate = [
             {
                 label: "Save",
                 click() {
-                    console.log("Save from menu")
+                    console.log("Save from menu");
+                    win.webContents.send('save-clicked');
                 }
             },
             {
                 label: "Save As",
                 click() {
-                    console.log("Save as from menu")
+                    console.log("Save as from menu");
+                    filepath = undefined;
+                    win.webContents.send('save-clicked');
                 }
             }
         ]
